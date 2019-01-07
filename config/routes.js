@@ -12,7 +12,8 @@ module.exports = function(app){
   app.post('/login', users.login);
   app.post('/register', users.register);
 
-  app.get('/competitions/:id', authMiddleware, competitions.getComp)
+  app.get('/competitions/:id', competitions.getComp)
+  app.get('/competitions/private/:id', competitions.getPrivComp)
 
 }
 
@@ -22,6 +23,6 @@ function authMiddleware(req, res, next) {
   if (!req.session.id) {
     res.redirect("/login");
   } else {
-    next();
+    next()
   }
 }

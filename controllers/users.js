@@ -5,7 +5,7 @@ module.exports = {
   index: function (req, res) {
     if(!req.session.user){
       knex('competitions').where('isPublic', true).then((results)=>{
-        res.render('index.ejs', {pubComps: results})
+        res.render('index.ejs', {pubComps: results, privComps: ''})
       })
     } else{
       //get competition id's for all comps user is in

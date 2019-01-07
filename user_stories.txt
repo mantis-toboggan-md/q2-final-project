@@ -1,3 +1,8 @@
+You Bet Your Ass
+YBYA is a user-defined betting website. People can make up bets, invite friends, define stakes and duration, and see a history of their won and lost bets. Bets can be open to the public, or invite-only.
+
+
+
 **When a user visits '/', they should see a summary of current public competitions
 
 When a user vists '/faq', they should see a list of FAQs/about etc
