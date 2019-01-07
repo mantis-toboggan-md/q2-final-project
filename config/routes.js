@@ -8,6 +8,7 @@ module.exports = function(app){
 
   app.get('/', users.index);
   app.get('/login', users.userLogin);
+  app.get('/logout', users.logout);
 
   app.post('/login', users.login);
   app.post('/register', users.register);
