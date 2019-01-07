@@ -10,9 +10,16 @@ module.exports = {
     } else{
       //get competition id's for all comps user is in
       knex('users_comps').where('user_id', req.session.user.id).select('comp_id').then((ids)=>{
+        //knex query returns array of objects; get only objects values into an array
+        let idArr = ids.map((obj)=>{
+          return obj.comp_id
+        })
         //use that array of comp_id's to filter competition table
-        knex('competitions').where('isPublic', false).whereIn('id', ids).then((results)=>{
-          res.render('index.ejs', {privComps: results})
+        knex('competitions').where('isPublic', false).whereIn('id', idArr).then((results)=>{
+          //get all public competitions
+          knex('competitions').where('isPublic', true).then((pubComps)=>{
+            res.render('index.ejs', {pubComps: pubComps, privComps: results})
+          })
         })
       })
 
@@ -35,7 +42,7 @@ module.exports = {
           req.session.user = user;
           req.session.user_id = user_id;
           req.session.save(() => {
-            res.redirect('/protected/confirmed');
+            res.redirect('/');
           })
         } else {
           res.redirect('/login');

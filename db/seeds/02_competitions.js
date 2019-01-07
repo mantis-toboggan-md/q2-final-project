@@ -14,6 +14,16 @@ exports.seed = function(knex, Promise) {
           creator_id: 2,
           arbiter_id: 1,
           isPublic: true
+        },
+        {
+          duration: 7,
+          bet_min: 100,
+          pool: 500,
+          title: 'test bet please ignore',
+          description: 'Do a thing. If you do it bad, you lose.',
+          creator_id: 1,
+          arbiter_id: 2,
+          isPublic: false
         }
       ]);
     });
