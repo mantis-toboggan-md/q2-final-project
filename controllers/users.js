@@ -68,7 +68,20 @@ module.exports = {
     } else {
       res.redirect('/login')
     }
+  },
+
+
+  successful_login: (req, res) => {
+    knex('users')
+      .where('email, req.session.email')
+      .andWhere('password', 'req.session.password')
+      .then((result) => {
+        if (result.length === 0) {
+          res.render('index', { users: result})
+        } else {
+          res.render('index', { users: result });
+        }
+      })
   }
-
-
+  
 }
