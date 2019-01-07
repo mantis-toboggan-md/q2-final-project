@@ -50,17 +50,18 @@ module.exports = {
   register: (req, res) => {
     if (req.body.password === req.body.confirmPassword) {
       knex('users').insert({
-        name: req.body.username,
+        username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        confirmPassword: req.body.confirmPassword
+        money: 100,
+        isAdmin: false
       }).then(() => {
         res.redirect('/login')
       });
     } else {
       res.redirect('/login')
     }
-  },
+  }
 
 
 }
