@@ -33,7 +33,7 @@ module.exports = {
         let user_id = results[0].id;
         if (user.password === req.body.password) {
           req.session.user = user;
-          req.session.user_id = user_id;
+          
           req.session.save(() => {
             res.redirect('/');
           })
@@ -61,20 +61,7 @@ module.exports = {
     } else {
       res.redirect('/login')
     }
-  },
-
-
-  successful_login: (req, res) => {
-    knex('users')
-      .where('email, req.session.email')
-      .andWhere('password', 'req.session.password')
-      .then((result) => {
-        if (result.length === 0) {
-          res.render('index', { users: result})
-        } else {
-          res.render('index', { users: result });
-        }
-      })
   }
+
   
 }
