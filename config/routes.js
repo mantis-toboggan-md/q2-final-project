@@ -1,6 +1,7 @@
 //Update the name of the controller below and rename the file.
 
 const users = require("../controllers/users.js");
+const competitions = require('../controllers/competitions_controller.js')
 
 
 module.exports = function(app){
@@ -11,8 +12,7 @@ module.exports = function(app){
   app.post('/login', users.login);
   app.post('/register', users.register);
 
-  app.use(authMiddleware);
-  app.get('/', users.successful_login);
+  app.get('/competitions/:id', authMiddleware, competitions.getComp)
 
 }
 
