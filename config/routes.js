@@ -1,7 +1,16 @@
 //Update the name of the controller below and rename the file.
-const login_controllers = require("../controllers/login_controllers.js")
+
+const users = require("../users/users.js");
+
+
 module.exports = function(app){
 
-  app.get('/', login_controllers.index);
+  app.get('/', users.index);
+  app.get('/login', users.userLogin);
+  
+  app.post('/login', users.login);
+  app.post('/register', users.register);
+
+
 
 }
