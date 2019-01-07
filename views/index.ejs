@@ -13,7 +13,7 @@
     <div class = 'divider'></div>
     <%for(let i = 0; i < privComps.length; i++){%>
       <%=privComps[i].title%>
-      <a href='/competitions/private/<%=privComps[i].id%>'>View Competition</a>
+      <a href='/competitions/<%=privComps[i].id%>'>View Competition</a>
     <%}%>
   </body>
 </html>

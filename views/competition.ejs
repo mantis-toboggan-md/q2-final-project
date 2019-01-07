@@ -5,5 +5,26 @@
   </head>
   <body>
     <% include ./partials/header.ejs %>
+    <%=competition.title%>
+    Description: <%=competition.description%><br>
+    Minimum: <%=competition.min_bet%>
+
+    Participants:
+    <%for(let i = 0; i < participants.length; i++){%>
+      <%=participants[i].username%>
+    <%}%>
+    <br>
+
+    Comments:
+    <%for(let i = 0; i < comments.length; i++){%>
+      <%=comments[i].username%>
+      <%=comments[i].content%>
+    <%}%>
+
+    <%if(user){%>
+      <form action = 'competition/<%=competition.id/comment%>' method = 'POST'>
+      </form>
+    <%}%>
+
   </body>
 </html>

@@ -1,5 +1,5 @@
 //Update the name of the controller below and rename the file.
-
+const knex = require('knex')
 const users = require("../controllers/users.js");
 const competitions = require('../controllers/competitions_controller.js')
 
@@ -13,9 +13,8 @@ module.exports = function(app){
   app.post('/login', users.login);
   app.post('/register', users.register);
 
-  app.get('/competitions/:id', competitions.getComp)
-  app.get('/competitions/private/:id', competitions.getPrivComp)
-
+  // app.use(competitionAuth)
+  app.get('/competitions/:id',competitionAuth, competitions.getComp)
 }
 
 
@@ -26,4 +25,29 @@ function authMiddleware(req, res, next) {
   } else {
     next()
   }
+}
+
+function competitionAuth(req,res,next){
+  console.log(req.params.id)
+  knex('competitions').where('id', req.params.id)
+  .then((competition)=>{
+    //check if comp is private and if so, confirm user has access
+    if(competition[0].isPublic){
+      next()
+    } else {
+      knex('invites').where({
+        comp_id: req.params.id,
+        user_id: req.session.user.id
+      }).orWhere({
+        comp_id: req.params.id,
+        user_email: req.session.user.email
+      }).then(results=>{
+        if(!results[0]){
+          res.redirect('/login')
+        } else{
+          next()
+        }
+      })
+    }
+  })
 }

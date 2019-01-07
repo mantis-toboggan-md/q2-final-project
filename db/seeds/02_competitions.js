@@ -13,6 +13,7 @@ exports.seed = function(knex, Promise) {
           description: 'Do a thing. If you do it bad, you lose.',
           creator_id: 2,
           arbiter_id: 1,
+          bet_min: 10,
           isPublic: true
         },
         {
@@ -23,6 +24,7 @@ exports.seed = function(knex, Promise) {
           description: 'Do a thing. If you do it bad, you lose.',
           creator_id: 1,
           arbiter_id: 2,
+          bet_min: 100,
           isPublic: false
         }
       ]);
