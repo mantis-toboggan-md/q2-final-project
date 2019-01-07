@@ -1,8 +1,8 @@
-When a user visits '/', they should see a summary of current public competitions
+**When a user visits '/', they should see a summary of current public competitions
 
 When a user vists '/faq', they should see a list of FAQs/about etc
 
-When a user visits '/login', they see forms to log in or register
+**When a user visits '/login', they see forms to log in or register
 
 When a user logs in, they are redirected back to '/', see their competitions, public competitions, buttons to join or view more, and a button to create competitions
 
