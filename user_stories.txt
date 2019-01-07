@@ -33,3 +33,5 @@ When a user visits '/competitions/:id', they should see info about specific comp
     When a user visits '/history', they should see a list of all former competitions they've participated in and their losses/winnings
 
     '/logout' too
+
+    When a user visits '/beg', they have to solve captchas to get more fundsS
