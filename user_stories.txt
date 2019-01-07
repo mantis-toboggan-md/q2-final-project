@@ -1,0 +1,35 @@
+When a user visits '/', they should see a summary of current public competitions
+
+When a user vists '/faq', they should see a list of FAQs/about etc
+
+When a user visits '/login', they see forms to log in or register
+
+When a user logs in, they are redirected back to '/', see their competitions, public competitions, buttons to join or view more, and a button to create competitions
+
+When a user visits '/competitions/:id', they should see info about specific competition:
+  -who started & When
+  -stakes
+  -current pool
+  -participants
+  -comments?
+  -invite button
+  -time remaining
+
+  When a user visits '/competitions/:id/bet', they should see a form to enter a competition with chosen bet amount
+
+  When a user submits a bet, they should be redirected back to that competition's page
+
+  When a user visits '/competitions/new', they should see a form to create a competition, including:
+    -general description and title
+    -run time
+    -minimum bet
+    -public/private
+    -searchable list of users to invite + invite message
+    -option to create invite link
+    -option to set arbiter other than creator who will be able to mark as completed and mark who won
+
+    When a user visits '/invites', they should see a list of competitions they've been invited to join
+
+    When a user visits '/history', they should see a list of all former competitions they've participated in and their losses/winnings
+
+    '/logout' too

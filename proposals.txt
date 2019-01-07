@@ -1,0 +1,32 @@
+App name: something something auctions
+
+Core app functionality: basic auction system
+  -post item to sell w/ initial price
+  -bet + set max bet to auto-increment
+  -remove item when auction ends
+
+What technologies are you using:
+  -ejs templates
+  -node.js/express api
+  -knex/postreSQL
+
+Stretch goals (if any):
+
+
+
+App name: something something betting site
+
+Core app functionality:
+  -user-defined bets
+  -public/private
+  -arbiter and betters
+  -set stakes
+  -transfer fake funds
+  -show record of won/lost bets
+
+What technologies are you using:
+  -ejs templates
+  -node.js/express api
+  -knex/postreSQL
+
+Stretch goals (if any):
