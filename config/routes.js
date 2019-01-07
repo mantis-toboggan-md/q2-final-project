@@ -1,5 +1,6 @@
 //Update the name of the controller below and rename the file.
-const users = require("../users/template.js");
+
+const users = require("../users/users.js");
 
 
 module.exports = function(app){
@@ -9,5 +10,7 @@ module.exports = function(app){
   
   app.post('/login', users.login);
   app.post('/register', users.register);
+
+
 
 }
