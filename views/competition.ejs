@@ -22,7 +22,11 @@
     <%}%>
 
     <%if(user){%>
-      <form action = 'competition/<%=competition.id/comment%>' method = 'POST'>
+      <form action = '/competitions/<%=competition.id%>/comment' method = 'POST'>
+        <div class='input-field'>
+          <textarea class='materialize-textarea' name='content'></textarea>
+          <button type='submit'>Submit Comment</button>
+        </div>
       </form>
     <%}%>
 
