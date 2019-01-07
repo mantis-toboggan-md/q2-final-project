@@ -11,6 +11,17 @@ module.exports = function(app){
   app.post('/login', users.login);
   app.post('/register', users.register);
 
+  app.use(authMiddleware);
+  app.get('/', users.successful_login);
+
+}
 
 
+
+function authMiddleware(req, res, next) {
+  if (!req.session.id) {
+    res.redirect("/login");
+  } else {
+    next();
+  }
 }
