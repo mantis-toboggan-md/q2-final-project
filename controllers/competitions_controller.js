@@ -30,7 +30,10 @@ module.exports = {
   },
 
   postNewComp: (req,res)=>{
-
+    //separate invites string by commas and remove spaces to get an array of usernames and emails
+    let invites = req.body.invites.split(',').map((word)=>{
+      return word.trim()
+    })
     knex('competitions').insert({
       title: req.body.title,
       description: req.body.description,
@@ -40,8 +43,37 @@ module.exports = {
       duration: req.body.duration,
       pool: 0,
       arbiter_id: req.session.user.id
-    }).then(()=>{
-      res.redirect('/')
+    }).returning('id')
+      .then((result)=>{
+      //returning gives id of newly created row; use to update invites table
+      //always invite whomever started the comp
+      knex('invites').insert({
+        comp_id: result[0],
+        username: req.session.user.username
+      })
+        .then(()=>{
+        let inviteObjs = []
+        invites.map((word)=>{
+          //if invite name is an email, insert as email param
+          if(word.includes('@')){
+            inviteObjs.push({
+              comp_id: result[0],
+              user_email: word
+            })
+          } else {
+            //if invite name is username, insert as username param
+            inviteObjs.push({
+              comp_id: result[0],
+              username: word
+            })
+          }
+        })
+        knex('invites').insert(inviteObjs)
+          .then(()=>{
+          res.redirect('/')
+        })
+      })
+    })
   },
 
   join: (req,res)=>{

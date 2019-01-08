@@ -9,7 +9,7 @@ module.exports = {
       })
     } else {
       //get competition id's for all comps user is in
-      knex('users_comps').where('user_id', req.session.user.id).select('comp_id').then((ids) => {
+      knex('invites').where('username', req.session.user.username).orWhere('user_email', req.session.user.email).select('comp_id').then((ids) => {
         //knex query returns array of objects; get only objects values into an array
         let idArr = ids.map((obj) => {
           return obj.comp_id

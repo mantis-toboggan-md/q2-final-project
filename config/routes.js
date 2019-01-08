@@ -40,7 +40,7 @@ function competitionAuth(req,res,next){
     } else {
       knex('invites').where({
         comp_id: req.params.id,
-        user_id: req.session.user.id
+        username: req.session.user.username
       }).orWhere({
         comp_id: req.params.id,
         user_email: req.session.user.email
