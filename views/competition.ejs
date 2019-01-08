@@ -27,25 +27,27 @@
     Arbiter: <%=competition.arbiter_name%>
     Participants:
     <%for(let i = 0; i < participants.length; i++){%>
-      <%=participants[i].username%>
+    <%=participants[i].username%>
     <%}%>
     <br>
 
-    Comments:
+    <b>Comments:</b>
     <%for(let i = 0; i < comments.length; i++){%>
-      <%=comments[i].username%>
-      <%=comments[i].content%>
-    <%}%>
+    <br><%=comments[i].username%>:
+    <%=comments[i].content%>
+    <%}%> <br>
 
     <%if(user){%>
-      <a href='/competitions/<%=competition.id%>/join'>Join Competition</a>
-      <form action = '/competitions/<%=competition.id%>/comment' method = 'POST'>
-        <div class='input-field'>
-          <textarea class='materialize-textarea' name='content'></textarea>
-          <button type='submit'>Submit Comment</button>
-        </div>
-      </form>
-    <%}%>
+    <a href='/competitions/<%=competition.id%>/join'>Join Competition</a>
+  </div>
+  <form action='/competitions/<%=competition.id%>/comment' method='POST'>
+    <div class='input-field'>
+      <textarea class='materialize-textarea' name='content'></textarea>
+      <button type='submit'>Submit Comment</button>
+    </div>
+  </form>
+  <%}%>
 
-  </body>
+</body>
+
 </html>
