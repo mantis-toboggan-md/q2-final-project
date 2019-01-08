@@ -14,8 +14,10 @@ module.exports = function(app){
   app.post('/register', users.register);
 
   app.get('/new', authMiddleware, competitions.getNewComp)
+  app.post('/competitions/new', competitions.postNewComp)
   app.get('/competitions/:id',competitionAuth, competitions.getComp)
   app.post('/competitions/:id/comment', authMiddleware, competitions.postComment)
+  app.get('/competitions/:id/join', competitionAuth, competitions.join)
 
 }
 
@@ -38,7 +40,7 @@ function competitionAuth(req,res,next){
     } else {
       knex('invites').where({
         comp_id: req.params.id,
-        user_id: req.session.user.id
+        username: req.session.user.username
       }).orWhere({
         comp_id: req.params.id,
         user_email: req.session.user.email

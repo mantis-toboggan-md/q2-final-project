@@ -7,7 +7,8 @@
     <% include ./partials/header.ejs %>
     <%=competition.title%>
     Description: <%=competition.description%><br>
-    Minimum: <%=competition.min_bet%>
+    Minimum: <%=competition.bet_min%>
+    pool: <%=competition.pool%>
 
     Participants:
     <%for(let i = 0; i < participants.length; i++){%>
@@ -22,6 +23,7 @@
     <%}%>
 
     <%if(user){%>
+      <a href='/competitions/<%=competition.id%>/join'>Join Competition</a>
       <form action = '/competitions/<%=competition.id%>/comment' method = 'POST'>
         <div class='input-field'>
           <textarea class='materialize-textarea' name='content'></textarea>
