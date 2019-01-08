@@ -1,49 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <% include ./partials/head.ejs %>
-  </head>
-  <body>
-    <% include ./partials/header.ejs %>
 
-    <h3>Start New Competition</h3>
-    <form action='/competitions/new' method = 'POST'>
+<head>
+  <% include ./partials/head.ejs %>
+</head>
+
+<style>
+  .card {
+    margin: 100px;
+    
+  }
+  form {
+    padding: 25px;
+    padding-bottom: 100px;
+   
+  }
+</style>
+
+<body class="grey lighten-4">
+  <% include ./partials/header.ejs %>
+  <div class="card z-depth-5">
+    <br>
+    <h3 style="text-align: center" class="orange-text">Start New Competition</h3>
+    <form class="container" action='/competitions/new' method='POST'>
       <div class='input-field'>
         <label for='title'>Title</label>
-        <input type = 'text' name='title' autocomplete='off'/>
+        <input type='text' name='title' autocomplete='off' />
       </div>
       <div class='input-field'>
         <label for='duration'>Length(days)</label>
-        <input type = 'number' name='duration' />
+        <input type='number' name='duration' />
       </div>
       <div class='input-field'>
         <label for='bet_min'>Minimum bet</label>
-        <input type = 'number' name='bet_min' />
+        <input type='number' name='bet_min' />
       </div>
       <div class='input-field'>
         <label for='description'>Description</label>
-        <textarea class='materialize-textarea' name ='description'></textarea>
+        <textarea class='materialize-textarea' name='description'></textarea>
       </div>
       <div class='input-field'>
         <p>
           <label>
-            <input name="isPublic" type="radio" checked id='publicBtn' value = 'true' />
+            <input name="isPublic" type="radio" checked id='publicBtn' value='true' />
             <span>Public</span>
           </label>
         </p>
         <p>
           <label>
-            <input name="isPublic" type="radio" id='privateBtn' value = 'false' />
+            <input name="isPublic" type="radio" id='privateBtn' value='false' />
             <span>Private</span>
           </label>
         </p>
       </div>
       <div id='privateOpts' style='display:none;'>
         Enter a comma-separated list of usernames or emails to invite:
-        <textarea name = 'invites' class='materialize-textarea'></textarea>
+        <textarea name='invites' class='materialize-textarea'></textarea>
       </div>
-      <button type='submit'>Open Competition</button>
+      <button class="btn-large waves-effect waves-light orange" type='submit'>Open Competition</button>
     </form>
-      <script src='../newComp.js'></script>
-  </body>
+    <script src='../newComp.js'></script>
+
+  </div>
+</body>
+
 </html>
