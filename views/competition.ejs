@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <% include ./partials/head.ejs %>
-  </head>
-  <body>
-    <% include ./partials/header.ejs %>
-    <%=competition.title%>
-    Description: <%=competition.description%><br>
-    Minimum: <%=competition.bet_min%>
-    pool: <%=competition.pool%>
+
+<head>
+  <% include ./partials/head.ejs %>
+</head>
+
+<body>
+  <% include ./partials/header.ejs %>
+
+  <div class="card">
+    <b><%=competition.title%>
+    Description:</b>
+    <%=competition.description%><br>
+    Minimum:
+    <%=competition.bet_min%> <br>
+    Pool:
+    <%=competition.pool%><br>
 
     Participants:
     <%for(let i = 0; i < participants.length; i++){%>
-      <%=participants[i].username%>
+    <%=participants[i].username%>
     <%}%>
     <br>
 
-    Comments:
+    <b>Comments:</b>
     <%for(let i = 0; i < comments.length; i++){%>
-      <%=comments[i].username%>
-      <%=comments[i].content%>
-    <%}%>
+    <br><%=comments[i].username%>:
+    <%=comments[i].content%>
+    <%}%> <br>
 
     <%if(user){%>
-      <a href='/competitions/<%=competition.id%>/join'>Join Competition</a>
-      <form action = '/competitions/<%=competition.id%>/comment' method = 'POST'>
-        <div class='input-field'>
-          <textarea class='materialize-textarea' name='content'></textarea>
-          <button type='submit'>Submit Comment</button>
-        </div>
-      </form>
-    <%}%>
+    <a href='/competitions/<%=competition.id%>/join'>Join Competition</a>
+  </div>
+  <form action='/competitions/<%=competition.id%>/comment' method='POST'>
+    <div class='input-field'>
+      <textarea class='materialize-textarea' name='content'></textarea>
+      <button type='submit'>Submit Comment</button>
+    </div>
+  </form>
+  <%}%>
 
-  </body>
+</body>
+
 </html>
