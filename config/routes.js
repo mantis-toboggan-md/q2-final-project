@@ -17,6 +17,7 @@ module.exports = function(app){
   app.post('/competitions/new', competitions.postNewComp)
   app.get('/competitions/:id',competitionAuth, competitions.getComp)
   app.post('/competitions/:id/comment', authMiddleware, competitions.postComment)
+  app.get('/competitions/:id/join', competitionAuth, competitions.join)
 
 }
 

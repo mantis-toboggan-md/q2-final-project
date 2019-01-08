@@ -5,7 +5,7 @@ module.exports = {
   index: function (req, res) {
     if(!req.session.user){
       knex('competitions').where('isPublic', true).then((results)=>{
-        res.render('index.ejs', {pubComps: results, privComps: ''})
+        res.render('index.ejs', {pubComps: results, privComps: '', user:req.session.user})
       })
     } else {
       //get competition id's for all comps user is in
@@ -18,7 +18,7 @@ module.exports = {
         knex('competitions').where('isPublic', false).whereIn('id', idArr).then((results) => {
           //get all public competitions
           knex('competitions').where('isPublic', true).then((pubComps) => {
-            res.render('index.ejs', { pubComps: pubComps, privComps: results })
+            res.render('index.ejs', { pubComps: pubComps, privComps: results, user:req.session.user })
           })
         })
       })
@@ -28,7 +28,7 @@ module.exports = {
 
 
   userLogin: (req, res) => {
-    res.render('login')
+    res.render('login', {user:req.session.user})
   },
 
 

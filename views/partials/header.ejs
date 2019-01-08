@@ -3,8 +3,12 @@
    <div class="nav-wrapper">
      <a href="/" class="brand-logo">You Bet Your Ass</a>
      <ul id="nav-mobile" class="right hide-on-med-and-down">
-       <li><a href="/login">Login In</a></li>
-       <li><a href="/new">Start Compeition</a></li>
+       <%if(!user){%>
+         <li><a href="/login">Log In</a></li>
+       <%} else {%>
+         <li><a href="/new">Start Compeition</a></li>
+         <li><a href="/logout">Log Out</a></li>
+        <%}%>
      </ul>
    </div>
  </nav>

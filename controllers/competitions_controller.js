@@ -42,6 +42,14 @@ module.exports = {
       arbiter_id: req.session.user.id
     }).then(()=>{
       res.redirect('/')
+  },
+
+  join: (req,res)=>{
+    knex('users_comps').insert({
+      comp_id: req.params.id,
+      user_id: req.session.user.id
+    }).then(()=>{
+      res.redirect(`/competitions/${req.params.id}`)
     })
   }
 }
