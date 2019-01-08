@@ -21,7 +21,9 @@ module.exports = function(app){
   app.post('/competitions/:id/comment', authMiddleware, competitions.postComment)
   app.get('/competitions/:id/join', competitionAuth, competitions.join)
   app.post('/competitions/:id/arbiter', competitions.arbiter)
-  app.get('competitions/:id/complete', arbiterAuth, competitions.complete)
+  app.get('/competitions/:id/complete', arbiterAuth, competitions.complete)
+  app.get('/competitions/:id/winners', arbiterAuth, competitions.winners)
+  app.post('/competitions/:id/winners', arbiterAuth, competitions.setWinners)
 
 }
 
@@ -61,7 +63,7 @@ function competitionAuth(req,res,next){
 
 function arbiterAuth(req,res,next){
   knex('competitions').where('id', req.params.id).then((competition)=>{
-    if(req.session.user.username===competition.arbiter_name){
+    if(req.session.user.username===competition[0].arbiter_name){
       next()
     } else {
       res.status(403).end()

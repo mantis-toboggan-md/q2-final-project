@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <%include ./partials/head.ejs%>
+  </head>
+  <body>
+    <%include ./partials/header.ejs%>
+    Select competition winner(s) below:
+    <form action='/competitions/<%=competition.id%>/winners' method='post'>
+      <div class='input-field'>
+        <%for(let i = 0; i < participants.length;i++){%>
+        <p>
+          <label>
+            <input name="<%=participants[i].username%>" type="checkbox" value='<%=participants[i].username%>' />
+            <span><%=participants[i].username%></span>
+          </label>
+        </p>
+        <%}%>
+      </div>
+      <button type='submit'>Submit</button>
+    </form>
+  </body>
+</html>

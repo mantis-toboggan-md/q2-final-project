@@ -10,6 +10,7 @@ exports.up = function(knex, Promise) {
     table.integer('creator_id')
     table.string('arbiter_name')
     table.string('status')
+    table.text('winners')
     table.boolean('isPublic')
     table.timestamps(true,true)
   })

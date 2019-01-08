@@ -98,6 +98,29 @@ module.exports = {
   },
 
   complete: (req,res)=>{
+    knex('competitions').where('id', req.params.id).update({
+      status: 'complete'
+    }).then(()=>{
+      res.redirect(`competitions/${req.params.id}/winners`)
+    })
+  },
 
+  winners: (req,res)=>{
+    knex('users_comps').where('comp_id', req.params.id).join('users', 'users.id', '=', 'users_comps.user_id').then((results)=>{
+      knex('competitions').where('id', req.params.id).then((comp)=>{
+        res.render('winners.ejs', {user:req.session.user, participants:results, competition:comp[0]})
+      })
+    })
+  },
+
+  setWinners: (req,res)=>{
+    let winnerArr = Object.keys(req.body)
+    knex('competitions').where('id', req.params.id).update({
+      winners: winnerArr
+    }).then(()=>{
+      //add portion of pool to each winner
+
+      res.redirect(`/competitions/${req.params.id}`)
+    })
   }
 }
