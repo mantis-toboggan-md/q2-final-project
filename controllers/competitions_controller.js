@@ -27,5 +27,21 @@ module.exports = {
 
   getNewComp: (req,res)=>{
     res.render('newCompetition.ejs', {user:req.session.user})
+  },
+
+  postNewComp: (req,res)=>{
+
+    knex('competitions').insert({
+      title: req.body.title,
+      description: req.body.description,
+      isPublic: req.body.isPublic,
+      bet_min: req.body.bet_min,
+      creator_id: req.session.user.id,
+      duration: req.body.duration,
+      pool: 0,
+      arbiter_id: req.session.user.id
+    }).then(()=>{
+      res.redirect('/')
+    })
   }
 }

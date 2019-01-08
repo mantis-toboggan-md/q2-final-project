@@ -27,17 +27,23 @@
       <div class='input-field'>
         <p>
           <label>
-            <input name="isPublic" type="radio" checked />
+            <input name="isPublic" type="radio" checked id='publicBtn' value = 'true' />
             <span>Public</span>
           </label>
         </p>
         <p>
           <label>
-            <input name="isPublic" type="radio" />
+            <input name="isPublic" type="radio" id='privateBtn' value = 'false' />
             <span>Private</span>
           </label>
         </p>
       </div>
+      <div id='privateOpts' style='display:none;'>
+        Enter a comma-separated list of usernames or emails to invite:
+        <textarea name = 'invites' class='materialize-textarea'></textarea>
+      </div>
+      <button type='submit'>Open Competition</button>
     </form>
+      <script src='../newComp.js'></script>
   </body>
 </html>

@@ -14,6 +14,7 @@ module.exports = function(app){
   app.post('/register', users.register);
 
   app.get('/new', authMiddleware, competitions.getNewComp)
+  app.post('/competitions/new', competitions.postNewComp)
   app.get('/competitions/:id',competitionAuth, competitions.getComp)
   app.post('/competitions/:id/comment', authMiddleware, competitions.postComment)
 
