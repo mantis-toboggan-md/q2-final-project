@@ -67,7 +67,7 @@ module.exports = {
           } else {
             //if invite name is username, insert as username param
             inviteObjs.push({
-              comp_id: result[0],
+              comp_id: result[0],       
               username: word
             })
           }

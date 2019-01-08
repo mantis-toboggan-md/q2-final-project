@@ -5,19 +5,21 @@
   </head>
   <body>
     <% include ./partials/header.ejs %>
-    <%if(user.username===competition.arbiter_name){%>
-      You are currently the arbiter of this competition. You may select a new arbiter below:
-      <br>
-      <form action = '/competitions/<%=competition.id%>/arbiter' method='post'>
-        <input type="text" name="arbiter" list="usernames">
-        <datalist id="usernames">
-          <%for(let i = 0; i < users.length; i++){%>
-            <option value = '<%=users[i].username%>'>
-          <%}%>
-        </datalist>
-        <button>Submit</button>
-      </form>
-      <a href = '/competitions/<%=competition.id%>/complete'>Mark Complete</a>
+    <%if(user){%>
+      <%if(user.username===competition.arbiter_name){%>
+        You are currently the arbiter of this competition. You may select a new arbiter below:
+        <br>
+        <form action = '/competitions/<%=competition.id%>/arbiter' method='post'>
+          <input type="text" name="arbiter" list="usernames">
+          <datalist id="usernames">
+            <%for(let i = 0; i < users.length; i++){%>
+              <option value = '<%=users[i].username%>'>
+            <%}%>
+          </datalist>
+          <button>Submit</button>
+        </form>
+        <a href = '/competitions/<%=competition.id%>/complete'>Mark Complete</a>
+      <%}%>
     <%}%>
     <%=competition.title%>
     Started: <%=competition.created_at%>
