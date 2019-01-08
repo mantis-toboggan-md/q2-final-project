@@ -1,14 +1,21 @@
 <!-- put navbar template here -->
-<nav>
-   <div class="nav-wrapper">
-     <a href="/" class="brand-logo">You Bet Your Ass</a>
-     <ul id="nav-mobile" class="right hide-on-med-and-down">
-       <%if(!user){%>
-         <li><a href="/login">Log In</a></li>
-       <%} else {%>
-         <li><a href="/new">Start Compeition</a></li>
-         <li><a href="/logout">Log Out</a></li>
-        <%}%>
-     </ul>
-   </div>
- </nav>
+<nav class="nav-wrapper light-blue lighten-1">
+  <div class="nav-wrapper container">
+    <a href="/" class="brand-logo">You Bet Your Ass</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <%if(!user){%>
+      <li><a href="/login">Log In</a></li>
+      <%} else {%>
+      <li><a href="/new">Start Compeition</a></li>
+      <li><a href="/logout">Log Out</a></li>
+      <%}%>
+    </ul>
+  </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+  <li><a href="/">Home</a></li>
+  <li><a href="/login">Login</a></li>
+  <li><a href="/new">Start Competition</a></li>
+
+</ul>
