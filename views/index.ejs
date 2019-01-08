@@ -7,19 +7,49 @@
     <% include ./partials/header.ejs %>
     <div class ='container'>
       <div class = 'row'>
+        <h5>Public Competitions:</h5>
+        <div class='divider'></div>
         <%for(let i = 0; i < pubComps.length; i++){%>
-          <div class = 'card'>
-            <div class = 'card-content'>              
-              <%=pubComps[i].title%>
-              <a href='/competitions/<%=pubComps[i].id%>'>View Competition</a>
+          <div class = 'col s4'>
+            <div class = 'card'>
+              <div class = 'card-content'>
+                <div class = 'card-title'>
+                  <%=pubComps[i].title%>
+                </div>
+                Pool: <%pubComps[i].pool%><br>
+                Minimum bet: <%=pubComps[i].bet_min%>
+              </div>
+              <div class = 'card-action'>
+                <a href='/competitions/<%=pubComps[i].id%>'>View Competition</a>
+              </div>
             </div>
           </div>
           <%}%>
       </div>
-      <div class='row'>
+      <div class = 'row'>
+        <%if(user){%>
+        <h5>Private Competitions:</h5>
+        <div class='divider'></div>
         <%for(let i = 0; i < privComps.length; i++){%>
-          <%=privComps[i].title%>
-          <a href='/competitions/<%=privComps[i].id%>'>View Competition</a>
+          <div class = 'col s4'>
+            <div class = 'card'>
+              <div class = 'card-content'>
+                <div class = 'card-title'>
+                  <%=privComps[i].title%>
+                </div>
+                Pool: <%privComps[i].pool%><br>
+                Minimum bet: <%=privComps[i].bet_min%>
+              </div>
+              <div class = 'card-action'>
+                <a href='/competitions/<%=privComps[i].id%>'>View Competition</a>
+              </div>
+            </div>
+          </div>
+          <%}%>
+        <%} else{%>
+          <div class = 'center-align'>
+          <a href='/login'>Log in</a> to view your private competitions
+        </div>
         <%}%>
       </div>
     </div>
