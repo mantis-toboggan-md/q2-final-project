@@ -1,15 +1,19 @@
 const knex = require("../db/knex.js")
+const moment = require('moment')
 
 module.exports = {
 
   getComp: (req,res)=>{
       knex('competitions').where('id', req.params.id)
         .then((competition)=>{
+          competition[0].created_at = moment(competition[0].created_at).format('MMMM DD, hh:mm a')
         knex('users_comps').where('comp_id', req.params.id).join('users', 'users.id', '=', 'users_comps.user_id')
           .then((users)=>{
           knex('comments').where('comp_id', req.params.id).join('users', 'comments.user_id', '=', 'users.id')
           .then((comments)=>{
-            res.render('competition.ejs', {user: req.session.user, participants: users, comments: comments, competition: competition[0]})
+            knex('users').then((allusers)=>{
+              res.render('competition.ejs', {user: req.session.user, participants: users, comments: comments, competition: competition[0], users:allusers})
+            })
           })
         })
       })
@@ -42,7 +46,7 @@ module.exports = {
       creator_id: req.session.user.id,
       duration: req.body.duration,
       pool: 0,
-      arbiter_id: req.session.user.id
+      arbiter_name: req.session.user.username
     }).returning('id')
       .then((result)=>{
       //returning gives id of newly created row; use to update invites table
@@ -83,5 +87,17 @@ module.exports = {
     }).then(()=>{
       res.redirect(`/competitions/${req.params.id}`)
     })
+  },
+
+  arbiter: (req,res)=>{
+    knex('competitions').where('id', req.params.id).update({
+      arbiter_name: req.body.arbiter
+    }).then(()=>{
+      res.redirect(`/competitions/${req.params.id}`)
+    })
+  },
+
+  complete: (req,res)=>{
+
   }
 }

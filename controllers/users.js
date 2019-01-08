@@ -84,7 +84,17 @@ module.exports = {
   },
 
   history: (req,res)=>{
-    
+    knex('users_comps').where({
+      user_id: req.session.user.id,
+      status: 'won'
+    }).then((wins)=>{
+      knex('users_comps').where({
+        user_id: req.session.user.id,
+        status: 'lost'
+      }).then((losses)=>{
+        res.render('history.ejs', {user:req.session.user, wins:wins, losses:losses})
+      })
+    })
   }
 
 
