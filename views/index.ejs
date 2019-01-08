@@ -5,15 +5,19 @@
   </head>
   <body>
     <% include ./partials/header.ejs %>
-
-    <%for(let i = 0; i < pubComps.length; i++){%>
-      <%=pubComps[i].title%>
-      <a href='/competitions/<%=pubComps[i].id%>'>View Competition</a>
-    <%}%>
-    <div class = 'divider'></div>
-    <%for(let i = 0; i < privComps.length; i++){%>
-      <%=privComps[i].title%>
-      <a href='/competitions/<%=privComps[i].id%>'>View Competition</a>
-    <%}%>
+    <div class ='container'>
+      <div class = 'row'>
+        <%for(let i = 0; i < pubComps.length; i++){%>
+          <%=pubComps[i].title%>
+          <a href='/competitions/<%=pubComps[i].id%>'>View Competition</a>
+          <%}%>
+      </div>
+      <div class='row'>
+        <%for(let i = 0; i < privComps.length; i++){%>
+          <%=privComps[i].title%>
+          <a href='/competitions/<%=privComps[i].id%>'>View Competition</a>
+        <%}%>
+      </div>
+    </div>
   </body>
 </html>

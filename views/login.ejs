@@ -8,8 +8,9 @@
 <body>
   <% include ./partials/header.ejs%>
     <main>
-
-
+      <%if(messages){%>
+        <%=messages%>
+      <%}%>
         <section class="login">
             <h2>Login</h2>
             <form action="/login" method="post">
