@@ -83,6 +83,9 @@ module.exports = {
     }
   },
 
+  history: (req,res)=>{
+    
+  }
 
 
 
