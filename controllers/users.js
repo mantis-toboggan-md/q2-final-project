@@ -5,7 +5,7 @@ module.exports = {
 
   index: function (req, res) {
     if(!req.session.user){
-      knex('competitions').where('isPublic', true).then((results)=>{
+      knex('competitions').where('isPublic', true).orderBy('pool', 'desc').then((results)=>{
         res.render('index.ejs', {pubComps: results, privComps: '', user:req.session.user})
       })
     } else {
@@ -16,7 +16,7 @@ module.exports = {
           return obj.comp_id
         })
         //use that array of comp_id's to filter competition table
-        knex('competitions').where('isPublic', false).whereIn('id', idArr).then((results) => {
+        knex('competitions').where('isPublic', false).whereIn('id', idArr).orderBy('pool', 'desc').then((results) => {
           //get all public competitions
           knex('competitions').where('isPublic', true).then((pubComps) => {
             res.render('index.ejs', { pubComps: pubComps, privComps: results, user:req.session.user })
@@ -84,6 +84,6 @@ module.exports = {
   },
 
 
- 
+
 
 }
