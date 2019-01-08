@@ -20,6 +20,8 @@ module.exports = function(app){
   app.get('/competitions/:id',competitionAuth, competitions.getComp)
   app.post('/competitions/:id/comment', authMiddleware, competitions.postComment)
   app.get('/competitions/:id/join', competitionAuth, competitions.join)
+  app.post('/competitions/:id/arbiter', competitions.arbiter)
+  app.get('competitions/:id/complete', arbiterAuth, competitions.complete)
 
 }
 
@@ -53,6 +55,16 @@ function competitionAuth(req,res,next){
           next()
         }
       })
+    }
+  })
+}
+
+function arbiterAuth(req,res,next){
+  knex('competitions').where('id', req.params.id).then((competition)=>{
+    if(req.session.user.username===competition.arbiter_name){
+      next()
+    } else {
+      res.status(403).end()
     }
   })
 }

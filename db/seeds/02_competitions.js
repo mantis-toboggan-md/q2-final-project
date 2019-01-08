@@ -12,8 +12,9 @@ exports.seed = function(knex, Promise) {
           title: 'test bet please ignore',
           description: 'Do a thing. If you do it bad, you lose.',
           creator_id: 2,
-          arbiter_id: 1,
+          arbiter_name: 'admin',
           bet_min: 10,
+          status: 'ongoing',
           isPublic: true
         },
         {
@@ -23,8 +24,9 @@ exports.seed = function(knex, Promise) {
           title: 'test bet please ignore',
           description: 'Do a thing. If you do it bad, you lose.',
           creator_id: 1,
-          arbiter_id: 2,
+          arbiter_name: 'test1',
           bet_min: 100,
+          status: 'ongoing',
           isPublic: false
         }
       ]);
