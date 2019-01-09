@@ -7,7 +7,6 @@ exports.up = function(knex, Promise) {
     table.string('password')
     table.integer('money')
     table.boolean('isAdmin')
-    table.timestamps(true,true)
   })
 };
 

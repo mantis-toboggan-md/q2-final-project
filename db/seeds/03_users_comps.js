@@ -16,7 +16,8 @@ exports.seed = function(knex, Promise) {
         {
           comp_id: 2,
           user_id: 1,
-          status: 'won'
+          status: 'won',
+          isClaimed: false
         },
         {
           comp_id: 2,
@@ -34,12 +35,14 @@ exports.seed = function(knex, Promise) {
         {
           comp_id: 4,
           user_id: 2,
-          status: 'won'
+          status: 'won',
+          isClaimed: true
         },
         {
           comp_id: 5,
           user_id: 2,
-          status: 'won'
+          status: 'won',
+          isClaimed: false
         }
       ]);
     });

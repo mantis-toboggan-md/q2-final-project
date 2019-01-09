@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     table.integer('comp_id')
     table.integer('user_id')
     table.string('status')
-    table.timestamps(true,true)
+    table.boolean('isClaimed')
   })
 };
 

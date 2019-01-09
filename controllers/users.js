@@ -85,16 +85,19 @@ module.exports = {
   },
 
   profile: (req,res)=>{
+    //get all of user's won competition relations
     knex('users_comps').where({
       user_id: req.session.user.id,
       status: 'won'
     }).join('competitions', 'competitions.id', '=', 'users_comps.comp_id')
       .then((wins)=>{
+      //get all lost competition relations
       knex('users_comps').where({
         user_id: req.session.user.id,
         status: 'lost'
       }).join('competitions', 'competitions.id', '=', 'users_comps.comp_id')
         .then((losses)=>{
+          //get all ongoing competition relations
           knex('users_comps').where({
             user_id: req.session.user.id,
             status: null
