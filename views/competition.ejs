@@ -12,50 +12,15 @@
 
 
     <div class="container">
-      <%if(user){%>
-      <%if(user.username===competition.arbiter_name){%>
+      <div class = 'row'>
+
+      </div>
       <div class="row">
-        <div class="col s5 push-s7">
-          <div class="card blue-grey lighten-5">
-            <div class="card-content blue-text">
-              <h6 class='center-align'>You are currently the arbiter of this competition. <br>You may select a new
-                arbiter below:</h6>
-              <br>
-
-              <form action='/competitions/<%=competition.id%>/arbiter' method='post'>
-                <input type="text" name="arbiter" list="usernames">
-                <datalist id="usernames">
-                  <%for(let i = 0; i < users.length; i++){%>
-                  <option value='<%=users[i].username%>'>
-                    <%}%>
-                </datalist>
-                <button class="btn green">Submit</button>
-
-              </form>
-              <br><br>
-              <h6 class="center-align">Once competition is over, click on Complete button.</h6>
-              <br>
-              <a class="waves-effect waves-light btn" href='/competitions/<%=competition.id%>/complete'>Complete</a>
-              <br>
-            </div>
-          </div>
-
-          <%}%>
-          <%}%>
-        </div>
 
 
-
-
-        <div class="col s7 pull-s5">
-          <br><br>
-
-
-
-
-          <br><br>
+        <div class="col s7" id='bet_desc'>
           <b>
-            <%=competition.title%></b> <br>
+            <h5><%=competition.title%></h5></b> <br>
           Started:
           <%=competition.created_at%><br>
           Description:
@@ -76,10 +41,10 @@
 
           <div class="row">
             <div class="col s6">
-              Place Bet $$: 
+              Place Bet $$:
               <div class="input_field">
                 <input type="number" name="bet_amt" placeholder="Enter Amount">
-                
+
               </div>
             </div>
 
@@ -89,7 +54,37 @@
                 Competition</a>
             </div>
           </div>
+        </div>
+        <%if(user){%>
+        <%if(user.username===competition.arbiter_name){%>
+          <div class="col s5">
+            <div class="card blue-grey lighten-5">
+              <div class="card-content blue-text">
+                <h6 class='center-align'>You are currently the arbiter of this competition. <br>You may select a new
+                  arbiter below:</h6>
+                <br>
 
+                <form action='/competitions/<%=competition.id%>/arbiter' method='post'>
+                  <input type="text" name="arbiter" list="usernames">
+                  <datalist id="usernames">
+                    <%for(let i = 0; i < users.length; i++){%>
+                    <option value='<%=users[i].username%>'>
+                      <%}%>
+                  </datalist>
+                  <button class="btn green">Submit</button>
+
+                </form>
+                <br><br>
+                <h6 class="center-align">Once competition is over, click on Complete button.</h6>
+                <br>
+                <a class="waves-effect waves-light btn" href='/competitions/<%=competition.id%>/complete'>Complete</a>
+                <br>
+              </div>
+            </div>
+
+          </div>
+            <%}%>
+            <%}%>
 
         </div>
 
@@ -113,7 +108,6 @@
         <%}%> <br>
 
 
-      </div>
     </div>
     </div>
   </main>
