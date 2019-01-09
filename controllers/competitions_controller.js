@@ -46,7 +46,8 @@ module.exports = {
       creator_id: req.session.user.id,
       duration: req.body.duration,
       pool: 0,
-      arbiter_name: req.session.user.username
+      arbiter_name: req.session.user.username,
+      comp_status: 'ongoing'
     }).returning('id')
       .then((result)=>{
       //returning gives id of newly created row; use to update invites table
