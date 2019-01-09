@@ -25,6 +25,8 @@ module.exports = function(app){
   app.get('/competitions/:id/winners', arbiterAuth, competitions.winners)
   app.post('/competitions/:id/winners', arbiterAuth, competitions.setWinners)
 
+  app.get('/competitions/:id/claim', users.claim)
+
 }
 
 

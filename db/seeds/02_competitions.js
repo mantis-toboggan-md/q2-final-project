@@ -8,7 +8,7 @@ exports.seed = function(knex, Promise) {
         {
           duration: 3,
           bet_min: 10,
-          pool: 0,
+          pool: 100,
           title: 'test bet please ignore',
           description: 'Do a thing. If you do it bad, you lose.',
           creator_id: 2,
@@ -27,7 +27,8 @@ exports.seed = function(knex, Promise) {
           arbiter_name: 'test1',
           bet_min: 50,
           comp_status: 'complete',
-          isPublic: true
+          isPublic: true,
+          winners: '{"1"}'
         },
         {
           duration: 7,
@@ -44,7 +45,7 @@ exports.seed = function(knex, Promise) {
         {
           duration: 5,
           bet_min: 20,
-          pool: 0,
+          pool: 100,
           title: 'another competition',
           description: 'Do a thing. If you do it bad, you lose.',
           creator_id: 1,
@@ -56,14 +57,15 @@ exports.seed = function(knex, Promise) {
         {
           duration: 5,
           bet_min: 20,
-          pool: 0,
+          pool: 100,
           title: 'another another competition',
           description: 'Do a thing. If you do it bad, you lose.',
           creator_id: 1,
           arbiter_name: 'test2',
           bet_min: 100,
           comp_status: 'complete',
-          isPublic: false
+          isPublic: false,
+          winners: '{"2"}'
         }
       ]);
     });

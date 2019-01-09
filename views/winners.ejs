@@ -2,22 +2,36 @@
 <html lang="en" dir="ltr">
   <head>
     <%include ./partials/head.ejs%>
+    <link rel = 'stylesheet' href = '../../main.css' />
   </head>
-  <body>
+  <body class = 'grey lighten-4'>
     <%include ./partials/header.ejs%>
-    Select competition winner(s) below:
-    <form action='/competitions/<%=competition.id%>/winners' method='post'>
-      <div class='input-field'>
-        <%for(let i = 0; i < participants.length;i++){%>
-        <p>
-          <label>
-            <input name="<%=participants[i].id%>" type="checkbox" value='<%=participants[i].id%>' />
-            <span><%=participants[i].username%></span>
-          </label>
-        </p>
-        <%}%>
-      </div>
-      <button type='submit'>Submit</button>
-    </form>
+    <main>
+    <div class = 'container'>
+      <div class = 'row'>
+        <div class = 'col s12'>
+          <div class = 'card'>
+            <div class = 'card-content'>
+              Select competition winner(s):
+              <form action='/competitions/<%=competition.id%>/winners' method='post'>
+                <div class='input-field'>
+                  <%for(let i = 0; i < participants.length;i++){%>
+                    <p>
+                      <label>
+                        <input name="<%=participants[i].id%>" type="checkbox" value='<%=participants[i].id%>' />
+                        <span><%=participants[i].username%></span>
+                      </label>
+                    </p>
+                    <%}%>
+                  </div>
+                  <button class = 'btn orange' type='submit'>Submit</button>
+                </form>
+            </div>
+          </div>
+          </div>
+        </div>
+    </div>
+  </main>
+        <% include ./partials/footer.ejs%>
   </body>
 </html>

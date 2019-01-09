@@ -46,7 +46,8 @@ module.exports = {
       creator_id: req.session.user.id,
       duration: req.body.duration,
       pool: 0,
-      arbiter_name: req.session.user.username
+      arbiter_name: req.session.user.username,
+      comp_status: 'ongoing'
     }).returning('id')
       .then((result)=>{
       //returning gives id of newly created row; use to update invites table
@@ -117,7 +118,8 @@ module.exports = {
     //winnerArr is array of winners' ids
     let winnerArr = Object.keys(req.body).map((key)=>parseInt(key))
     knex('competitions').where('id', req.params.id).update({
-      winners: winnerArr
+      winners: winnerArr,
+      updated_at: knex.fn.now()
     }).returning('id').then((comp)=>{
       //update users_comps status for all winners
       knex('users_comps').where('comp_id', comp[0]).whereIn('user_id', winnerArr).update({

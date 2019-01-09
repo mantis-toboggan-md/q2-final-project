@@ -6,7 +6,7 @@ module.exports = {
 
   index: function (req, res) {
     if(!req.session.user){
-      knex('competitions').where('isPublic', true).orderBy('pool', 'desc').then((results)=>{
+      knex('competitions').where('isPublic', true).where('comp_status', 'ongoing').orderBy('pool', 'desc').then((results)=>{
         res.render('index.ejs', {pubComps: results, privComps: '', user:req.session.user})
       })
     } else {
@@ -17,9 +17,9 @@ module.exports = {
           return obj.comp_id
         })
         //use that array of comp_id's to filter competition table
-        knex('competitions').where('isPublic', false).whereIn('id', idArr).orderBy('pool', 'desc').then((results) => {
+        knex('competitions').where('isPublic', false).where('comp_status', 'ongoing').whereIn('id', idArr).orderBy('pool', 'desc').then((results) => {
           //get all public competitions
-          knex('competitions').where('isPublic', true).then((pubComps) => {
+          knex('competitions').where('isPublic', true).where('comp_status', 'ongoing').then((pubComps) => {
             res.render('index.ejs', { pubComps: pubComps, privComps: results, user:req.session.user })
           })
         })
@@ -91,12 +91,18 @@ module.exports = {
       status: 'won'
     }).join('competitions', 'competitions.id', '=', 'users_comps.comp_id')
       .then((wins)=>{
+        wins.map((comp)=>{
+          comp.updated_at = moment(comp.updated_at).format('MMMM DD, hh:mm a')
+        })
       //get all lost competition relations
       knex('users_comps').where({
         user_id: req.session.user.id,
         status: 'lost'
       }).join('competitions', 'competitions.id', '=', 'users_comps.comp_id')
         .then((losses)=>{
+          losses.map((comp)=>{
+            comp.updated_at = moment(comp.updated_at).format('MMMM DD, hh:mm a')
+          })
           //get all ongoing competition relations
           knex('users_comps').where({
             user_id: req.session.user.id,
@@ -104,6 +110,32 @@ module.exports = {
           }).join('competitions', 'competitions.id', '=', 'users_comps.comp_id').then((ongoing)=>{
             res.render('profile.ejs', {user:req.session.user, wins:wins, losses:losses, ongoing:ongoing})
           })
+      })
+    })
+  },
+
+  claim: (req,res)=>{
+    knex('users_comps').where({
+      user_id: req.session.user.id,
+      comp_id: req.params.id
+    }).update({
+      isClaimed: true
+    }).then(()=>{
+      knex('competitions').where('id', req.params.id).then((result)=>{
+        //get number of winners by extracting ints from winners string
+        let numWins = result[0].winners.match(/[0-9]/g).length
+        let winnings = Math.floor(result[0].pool/numWins)
+        knex.raw(
+          `UPDATE users SET money = money + ${winnings} WHERE id=${req.session.user.id}`
+        )
+        .then(()=>{
+          //update the session object to reflect changes made in db
+          knex('users').where('id', req.session.user.id).then((user)=>{
+            req.session.user = user[0]
+          }).then(()=>{
+            res.redirect('/profile')
+          })
+        })
       })
     })
   }
