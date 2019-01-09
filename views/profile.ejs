@@ -15,8 +15,6 @@
                 <div class='divider'></div>
               </div>
               Funds: <%=user.money%>
-            </div>
-            <div class='card-action'>
               <div class="row">
                 <div class="col s12">
                   <ul class="tabs">
@@ -32,23 +30,37 @@
                   </ul>
                 </div>
                 <div id="ongoing" class="col s12">
-                  <%=ongoing[0].title%>
+                  <%for(let i = 0; i < ongoing.length;i++){%>
+                    <h6><a href='/competitions/<%=ongoing[i].id%>'><%=ongoing[i].title%></a></h6>
+                    <%if(i < ongoing.length-1){%>
+                      <div class='divider'></div>
+                    <%}%>
+                  <%}%>
                 </div>
                 <div id="won" class="col s12">
                   <%for(let i = 0; i < wins.length; i++){%>
                     <div>
                       <%if(!wins[i].isClaimed){%>
-                        <a class = 'right' href='/competitions/<%=wins[i].id%>/claim>'>
+                        <a class = ' btn-small orange right' href='/competitions/<%=wins[i].id%>/claim'>
                           Claim
                         </a>
                       <%}%>
-                      <h6><%=wins[i].title%></h6> ended: <%=wins[i].updated_at%>
-                      <div class='divider'></div>
+                      <h6><a href='/competitions/<%=wins[i].id%>'><%=wins[i].title%></a></h6> ended: <%=wins[i].updated_at%>
+                      <%if(i < wins.length-1){%>
+                        <div class='divider'></div>
+                      <%}%>
                     </div>
                   <%}%>
                 </div>
                 <div id="lost" class="col s12">
-                  Lost
+                  <%for(let i = 0; i < losses.length; i++){%>
+                    <div>
+                      <h6><a href='/competitions/<%=losses[i].id%>'><%=losses[i].title%></a></h6> ended: <%=losses[i].updated_at%>
+                      <%if(i < losses.length-1){%>
+                        <div class='divider'></div>
+                      <%}%>
+                    </div>
+                  <%}%>
                 </div>
               </div>
             </div>
