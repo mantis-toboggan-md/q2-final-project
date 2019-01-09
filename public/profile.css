@@ -1,0 +1,11 @@
+#profile_tabs a {
+  color: rgba(255, 152, 0, 1);
+}
+
+#profile_tabs a.active {
+  background-color: rgba(255, 152, 0, 0.05);
+}
+
+.tabs .indicator {
+  background-color: rgba(255, 152, 0, 0.3);
+}

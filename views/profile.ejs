@@ -2,10 +2,12 @@
 <html lang="en" dir="ltr">
   <head>
     <%include ./partials/head.ejs%>
+    <link rel='stylesheet' href='../profile.css' />
   </head>
-  <body>
+  <body class = 'grey lighten-4'>
+    <main>
     <%include ./partials/header.ejs%>
-    <div class ='container'>
+    <div class ='container '>
       <div class = 'row'>
         <div class = 'col s12'>
           <div class='card'>
@@ -17,7 +19,7 @@
               Funds: <%=user.money%>
               <div class="row">
                 <div class="col s12">
-                  <ul class="tabs">
+                  <ul class="tabs" id='profile_tabs'>
                     <li class="tab col s3">
                       <a class="active" href="#ongoing">Ongoing</a>
                     </li>
@@ -69,5 +71,7 @@
       </div>
     </div>
     <script src ='materializeInit.js'></script>
+  </main>
+  <% include ./partials/footer.ejs%>
   </body>
 </html>
