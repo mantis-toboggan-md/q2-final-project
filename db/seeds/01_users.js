@@ -25,6 +25,13 @@ exports.seed = function(knex, Promise) {
           password: 'password',
           money: 100,
           isAdmin: false
+        },
+        {
+          username: 'cortes1',
+          email: 'cortes@gmail.com',
+          password: '123',
+          money: 100,
+          isAdmin: false
         }
       ]);
     });
