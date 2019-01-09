@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <%include ./partials/head.ejs%>
+  </head>
+  <body>
+    <%include ./partials/header.ejs%>
+    <div class ='container'>
+      <div class = 'row'>
+        <div class = 'col s12'>
+          <div class='card'>
+            <div class = 'card-content'>
+              <div class = 'card-title'>
+                <%=user.username%>
+                <div class='divider'></div>
+              </div>
+              Funds: <%=user.money%>
+            </div>
+            <div class='card-action'>
+              <div class="row">
+                <div class="col s12">
+                  <ul class="tabs">
+                    <li class="tab col s3">
+                      <a class="active" href="#ongoing">Ongoing</a>
+                    </li>
+                    <li class="tab col s3">
+                      <a href="#won">Won</a>
+                    </li>
+                    <li class="tab col s3">
+                      <a href="#lost">Lost</a>
+                    </li>
+                  </ul>
+                </div>
+                <div id="ongoing" class="col s12">
+                  Ongoing
+                </div>
+                <div id="won" class="col s12">
+                  <%for(let i = 0; i < wins.length; i++){%>
+                    <div>
+                      <h6><%=wins[i].title%></h6>
+                      <div class='divider'></div>
+                    </div>
+                  <%}%>
+                </div>
+                <div id="lost" class="col s12">
+                  Lost
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src ='materializeInit.js'></script>
+  </body>
+</html>

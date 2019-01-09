@@ -10,7 +10,7 @@ module.exports = function(app){
   app.get('/login', users.userLogin);
   app.get('/logout', users.logout);
 
-  app.get('/history', users.history)
+  app.get('/profile', users.profile)
 
   app.post('/login', users.login);
   app.post('/register', users.register);

@@ -15,7 +15,31 @@ exports.seed = function(knex, Promise) {
         },
         {
           comp_id: 2,
+          user_id: 1,
+          status: 'won'
+        },
+        {
+          comp_id: 2,
+          user_id: 2,
+          status: 'lost'
+        },
+        {
+          comp_id: 3,
           user_id: 1
+        },
+        {
+          comp_id: 3,
+          user_id: 2
+        },
+        {
+          comp_id: 4,
+          user_id: 2,
+          status: 'won'
+        },
+        {
+          comp_id: 5,
+          user_id: 2,
+          status: 'won'
         }
       ]);
     });
