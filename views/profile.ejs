@@ -41,15 +41,15 @@
                   <%}%>
                 </div>
                 <div id="won" class="col s12">
-                  <%for(let i = 0; i < wins.length; i++){%>
+                  <%for(let i = 0; i < comp_wins.length; i++){%>
                     <div>
-                      <%if(!wins[i].isClaimed){%>
-                        <a class = ' btn-small orange right' href='/competitions/<%=wins[i].id%>/claim'>
+                      <%if(!comp_wins[i].isClaimed){%>
+                        <a class = ' btn-small orange right' href='/competitions/<%=comp_wins[i].id%>/claim'>
                           Claim
                         </a>
                       <%}%>
-                      <h6><a href='/competitions/<%=wins[i].id%>'><%=wins[i].title%></a></h6> ended: <%=wins[i].updated_at%>
-                      <%if(i < wins.length-1){%>
+                      <h6><a href='/competitions/<%=comp_wins[i].id%>'><%=comp_wins[i].title%></a></h6> ended: <%=comp_wins[i].updated_at%>
+                      <%if(i < comp_wins.length-1){%>
                         <div class='divider'></div>
                       <%}%>
                     </div>

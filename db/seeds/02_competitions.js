@@ -52,7 +52,8 @@ exports.seed = function(knex, Promise) {
           arbiter_name: 'test2',
           bet_min: 100,
           comp_status: 'complete',
-          isPublic: false
+          isPublic: false,
+          winners: '{"1"}'
         },
         {
           duration: 5,

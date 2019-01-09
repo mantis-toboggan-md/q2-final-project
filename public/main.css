@@ -8,3 +8,9 @@
   main {
     flex: 1 0 auto;
   }
+#unclaimed {
+  font-size: .75em;
+  margin-left: 0px;
+  margin-top: -3px;
+  color: #ffb74d;
+}

@@ -7,7 +7,7 @@ module.exports = {
   index: function (req, res) {
     if(!req.session.user){
       knex('competitions').where('isPublic', true).where('comp_status', 'ongoing').orderBy('pool', 'desc').then((results)=>{
-        res.render('index.ejs', {pubComps: results, privComps: '', user:req.session.user})
+        res.render('index.ejs', {pubComps: results, privComps: '', user:req.session.user, wins: ''})
       })
     } else {
       //get competition id's for all comps user is in
@@ -20,7 +20,13 @@ module.exports = {
         knex('competitions').where('isPublic', false).where('comp_status', 'ongoing').whereIn('id', idArr).orderBy('pool', 'desc').then((results) => {
           //get all public competitions
           knex('competitions').where('isPublic', true).where('comp_status', 'ongoing').then((pubComps) => {
-            res.render('index.ejs', { pubComps: pubComps, privComps: results, user:req.session.user })
+            knex('users_comps').where({
+              user_id: req.session.user.id,
+              status: 'won',
+              isClaimed: false
+            }).then((wins)=>{
+                res.render('index.ejs', { pubComps: pubComps, privComps: results, user:req.session.user, wins:wins })
+            })
           })
         })
       })
@@ -38,16 +44,22 @@ module.exports = {
     knex('users')
       .where('email', req.body.email)
       .then((results) => {
-        let user = results[0];
-        let user_id = results[0].id;
-        if (user.password === req.body.password) {
-          req.session.user = user;
+        if(!results[0]){
+          req.flash('info', 'email not found')
+          res.redirect('/login')
+        }else{
+          let user = results[0];
+          let user_id = results[0].id;
+          if (user.password === req.body.password) {
+            req.session.user = user;
 
-          req.session.save(() => {
-            res.redirect('/');
-          })
-        } else {
-          res.redirect('/login');
+            req.session.save(() => {
+              res.redirect('/');
+            })
+          } else {
+            req.flash('info', 'password incorrect')
+            res.redirect('/login');
+          }
         }
       }).catch(() => {
         res.redirect('/login')
@@ -108,7 +120,13 @@ module.exports = {
             user_id: req.session.user.id,
             status: null
           }).join('competitions', 'competitions.id', '=', 'users_comps.comp_id').then((ongoing)=>{
-            res.render('profile.ejs', {user:req.session.user, wins:wins, losses:losses, ongoing:ongoing})
+            knex('users_comps').where({
+              user_id: req.session.user.id,
+              status: 'won',
+              isClaimed: false
+            }).then((userwins)=>{
+              res.render('profile.ejs', {user:req.session.user, comp_wins:wins, losses:losses, ongoing:ongoing, wins:userwins})
+            })
           })
       })
     })
