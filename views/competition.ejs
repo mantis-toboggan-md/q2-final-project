@@ -6,33 +6,19 @@
   <link rel = 'stylesheet' href = '../../main.css' />
 </head>
 
-<style>
-  /* .row {
-  display: flex;
-  flex-direction: row-reverse;
-} */
-
-  /* .container {
-    display: flex;
-    
-  } */
-
- 
-</style>
-
 <body>
   <main>
   <% include ./partials/header.ejs %>
 
 
-  <!-- <div class="container"> -->
+  <div class="container">
     <%if(user){%>
     <%if(user.username===competition.arbiter_name){%>
     <div class="row">
       <div class="col s5 push-s7">
         <div class="card orange darken-1">
           <div class="card-content white-text">
-            <h6 style="text-align:center">You are currently the arbiter of this competition. <br>You may select a new arbiter below:</h6>
+            <h6 class='canter-align'>You are currently the arbiter of this competition. <br>You may select a new arbiter below:</h6>
             <br>
 
             <form action='/competitions/<%=competition.id%>/arbiter' method='post'>
@@ -58,7 +44,7 @@
 
 
       <div class="col s7 pull-s5">
-        <!-- <a href='/competitions/<%=competition.id%>/join'>Join Competition</a><br> -->
+        <a href='/competitions/<%=competition.id%>/join'>Join Competition</a><br>
 
 
         <%=competition.title%> <br>
@@ -86,19 +72,16 @@
         <%}%> <br>
 
         <%if(user){%>
-
-
-        <form action='/competitions/<%=competition.id%>/comment' method='POST'>
-          <div class='input-field'>
-            <textarea class='materialize-textarea' name='content'></textarea>
-            <button class="waves-effect waves-light btn" type='submit'>Submit Comment</button>
-          </div>
-        </form>
+          <form action='/competitions/<%=competition.id%>/comment' method='POST'>
+            <div class='input-field'>
+              <textarea class='materialize-textarea' name='content'></textarea>
+              <button class="waves-effect waves-light btn" type='submit'>Submit Comment</button>
+            </div>
+          </form>
         <%}%>
       </div>
     </div>
-  </form>
-  <%}%>
+  </div>
 </main>
     <% include ./partials/footer.ejs%>
 </body>
