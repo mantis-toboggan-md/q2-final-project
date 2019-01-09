@@ -43,6 +43,10 @@ exports.seed = function(knex, Promise) {
           user_id: 2,
           status: 'won',
           isClaimed: false
+        },
+        {
+          comp_id: 6,
+          user_id: 4
         }
       ]);
     });

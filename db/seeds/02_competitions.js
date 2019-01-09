@@ -66,6 +66,18 @@ exports.seed = function(knex, Promise) {
           comp_status: 'complete',
           isPublic: false,
           winners: '{"2"}'
+        },
+        {
+          duration: 30,
+          bet_min: 100,
+          pool: 100,
+          title: 'Diet Bet',
+          description: 'Lose weight and make $$.',
+          creator_id: 1,
+          arbiter_name: 'cortes1',
+          bet_min: 10,
+          comp_status: 'ongoing',
+          isPublic: true
         }
       ]);
     });
