@@ -16,8 +16,8 @@
       <%if(user.username===competition.arbiter_name){%>
       <div class="row">
         <div class="col s5 push-s7">
-          <div class="card orange darken-1">
-            <div class="card-content white-text">
+          <div class="card blue-grey lighten-5">
+            <div class="card-content blue-text">
               <h6 class='center-align'>You are currently the arbiter of this competition. <br>You may select a new
                 arbiter below:</h6>
               <br>
@@ -33,7 +33,9 @@
 
               </form>
               <br><br>
-              <a class="waves-effect waves-light btn" href='/competitions/<%=competition.id%>/complete'>Mark Complete</a>
+              <h6 class="center-align">Once competition is over, click on Complete button.</h6>
+              <br>
+              <a class="waves-effect waves-light btn" href='/competitions/<%=competition.id%>/complete'>Complete</a>
               <br>
             </div>
           </div>
@@ -47,10 +49,13 @@
 
         <div class="col s7 pull-s5">
           <br><br>
-          <a class="btn yellow accent-2 black-text" href='/competitions/<%=competition.id%>/join'>Join Competition</a>
+
+
+
 
           <br><br>
-          <%=competition.title%> <br>
+          <b>
+            <%=competition.title%></b> <br>
           Started:
           <%=competition.created_at%><br>
           Description:
@@ -65,27 +70,51 @@
           <%for(let i = 0; i < participants.length; i++){%>
           <%=participants[i].username%>
           <%}%>
-          <br>
-          <%if(user){%>
-          
-            <form action='/competitions/<%=competition.id%>/comment' method='POST'>
-            <div class='input-field'>
-              <textarea class='materialize-textarea' name='content'></textarea>
-              <button class="waves-effect waves-light indigo lighten-4 btn" type='submit'>Submit Comment</button>
+          <br><br>
+
+
+
+          <div class="row">
+            <div class="col s6">
+              Place Bet $$: 
+              <div class="input_field">
+                <input type="number" name="bet_amt" placeholder="Enter Amount">
+                
+              </div>
             </div>
-          </form>
-          
-          <%}%>
-          <b>Comments:</b>
-          <%for(let i = 0; i < comments.length; i++){%>
-          <br>
-          <%=comments[i].username%>:
-          <%=comments[i].content%>
-          <%}%> <br>
+
+            <div class="col s6">
+              <br>
+              <a class="btn orange accent-2 white-text" href='/competitions/<%=competition.id%>/join'>Join
+                Competition</a>
+            </div>
+          </div>
 
 
         </div>
+
+
+        <%if(user){%>
+
+        <form action='/competitions/<%=competition.id%>/comment' method='POST'>
+          <div class='input-field'>
+            <textarea class='materialize-textarea' name='content' placeholder="Place comment here"></textarea>
+            <button class="btn-flat orange-text" type='submit'>Submit Comment</button>
+          </div>
+        </form>
+
+        <%}%>
+        <b>Comments:</b>
+        <%for(let i = 0; i < comments.length; i++){%>
+        <br>
+        <%=comments[i].username%>:
+        <%=comments[i].content%> <br>
+        <%=comments[i].created_at%>
+        <%}%> <br>
+
+
       </div>
+    </div>
     </div>
   </main>
   <% include ./partials/footer.ejs%>
