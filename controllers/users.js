@@ -1,5 +1,6 @@
 const knex = require("../db/knex.js")
 const flash = require('connect-flash')
+const moment = require('moment')
 
 module.exports = {
 
@@ -83,16 +84,23 @@ module.exports = {
     }
   },
 
-  history: (req,res)=>{
+  profile: (req,res)=>{
     knex('users_comps').where({
       user_id: req.session.user.id,
       status: 'won'
-    }).then((wins)=>{
+    }).join('competitions', 'competitions.id', '=', 'users_comps.comp_id')
+      .then((wins)=>{
       knex('users_comps').where({
         user_id: req.session.user.id,
         status: 'lost'
-      }).then((losses)=>{
-        res.render('history.ejs', {user:req.session.user, wins:wins, losses:losses})
+      }).join('competitions', 'competitions.id', '=', 'users_comps.comp_id')
+        .then((losses)=>{
+          knex('users_comps').where({
+            user_id: req.session.user.id,
+            status: null
+          }).join('competitions', 'competitions.id', '=', 'users_comps.comp_id').then((ongoing)=>{
+            res.render('profile.ejs', {user:req.session.user, wins:wins, losses:losses, ongoing:ongoing})
+          })
       })
     })
   }

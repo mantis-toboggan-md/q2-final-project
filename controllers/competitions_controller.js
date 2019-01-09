@@ -67,7 +67,7 @@ module.exports = {
           } else {
             //if invite name is username, insert as username param
             inviteObjs.push({
-              comp_id: result[0],       
+              comp_id: result[0],
               username: word
             })
           }
@@ -99,7 +99,7 @@ module.exports = {
 
   complete: (req,res)=>{
     knex('competitions').where('id', req.params.id).update({
-      status: 'complete'
+      comp_status: 'complete'
     }).then(()=>{
       res.redirect(`competitions/${req.params.id}/winners`)
     })
@@ -114,13 +114,20 @@ module.exports = {
   },
 
   setWinners: (req,res)=>{
-    let winnerArr = Object.keys(req.body)
+    //winnerArr is array of winners' ids
+    let winnerArr = Object.keys(req.body).map((key)=>parseInt(key))
     knex('competitions').where('id', req.params.id).update({
       winners: winnerArr
-    }).then(()=>{
-      //add portion of pool to each winner
-
-      res.redirect(`/competitions/${req.params.id}`)
+    }).returning('id').then((comp)=>{
+      //update users_comps status for all winners
+      knex('users_comps').where('comp_id', comp[0]).whereIn('user_id', winnerArr).update('status', 'won').then(()=>{
+        //update users_comps for loooooooosers
+        knex('users_comps').where('comp_id', comp[0]).whereNotIn('user_id', winnerArr).update(
+          'status', 'lost'
+        ).then(()=>{
+          res.redirect(`/competitions/${req.params.id}`)
+        })
+      })
     })
   }
 }
