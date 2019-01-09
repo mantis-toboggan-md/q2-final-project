@@ -101,7 +101,7 @@ module.exports = {
     knex('competitions').where('id', req.params.id).update({
       comp_status: 'complete'
     }).then(()=>{
-      res.redirect(`competitions/${req.params.id}/winners`)
+      res.redirect(`/competitions/${req.params.id}/winners`)
     })
   },
 
@@ -120,7 +120,10 @@ module.exports = {
       winners: winnerArr
     }).returning('id').then((comp)=>{
       //update users_comps status for all winners
-      knex('users_comps').where('comp_id', comp[0]).whereIn('user_id', winnerArr).update('status', 'won').then(()=>{
+      knex('users_comps').where('comp_id', comp[0]).whereIn('user_id', winnerArr).update({
+        status: 'won',
+        isClaimed: false
+      }).then(()=>{
         //update users_comps for loooooooosers
         knex('users_comps').where('comp_id', comp[0]).whereNotIn('user_id', winnerArr).update(
           'status', 'lost'

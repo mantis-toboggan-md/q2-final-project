@@ -32,12 +32,17 @@
                   </ul>
                 </div>
                 <div id="ongoing" class="col s12">
-                  Ongoing
+                  <%=ongoing[0].title%>
                 </div>
                 <div id="won" class="col s12">
                   <%for(let i = 0; i < wins.length; i++){%>
                     <div>
-                      <h6><%=wins[i].title%></h6>
+                      <%if(!wins[i].isClaimed){%>
+                        <a class = 'right' href='/competitions/<%=wins[i].id%>/claim>'>
+                          Claim
+                        </a>
+                      <%}%>
+                      <h6><%=wins[i].title%></h6> ended: <%=wins[i].updated_at%>
                       <div class='divider'></div>
                     </div>
                   <%}%>
