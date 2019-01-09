@@ -38,16 +38,22 @@ module.exports = {
     knex('users')
       .where('email', req.body.email)
       .then((results) => {
-        let user = results[0];
-        let user_id = results[0].id;
-        if (user.password === req.body.password) {
-          req.session.user = user;
+        if(!results[0]){
+          req.flash('info', 'email not found')
+          res.redirect('/login')
+        }else{
+          let user = results[0];
+          let user_id = results[0].id;
+          if (user.password === req.body.password) {
+            req.session.user = user;
 
-          req.session.save(() => {
-            res.redirect('/');
-          })
-        } else {
-          res.redirect('/login');
+            req.session.save(() => {
+              res.redirect('/');
+            })
+          } else {
+            req.flash('info', 'password incorrect')
+            res.redirect('/login');
+          }
         }
       }).catch(() => {
         res.redirect('/login')
