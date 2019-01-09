@@ -6,7 +6,13 @@
       <%if(!user){%>
       <li><a href="/login">Log In</a></li>
       <%} else {%>
-        <li><a href="/profile">Profile</a></li>
+        <li>
+          <a href="/profile">Profile<%if(wins){%>
+            <%if(wins[0]){%>
+              <i class='tiny material-icons right' id='unclaimed'>star</i>
+            <%}%>
+          <%}%></a>
+        </li>
       <li><a href="/new">Start Competition</a></li>
       <li><a href="/logout">Log Out</a></li>
       <%}%>

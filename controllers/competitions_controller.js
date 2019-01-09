@@ -12,7 +12,13 @@ module.exports = {
           knex('comments').where('comp_id', req.params.id).join('users', 'comments.user_id', '=', 'users.id')
           .then((comments)=>{
             knex('users').then((allusers)=>{
-              res.render('competition.ejs', {user: req.session.user, participants: users, comments: comments, competition: competition[0], users:allusers})
+              knex('users_comps').where({
+                user_id: req.session.user.id,
+                status: 'won',
+                isClaimed: false
+              }).then((wins)=>{
+                res.render('competition.ejs', {user: req.session.user, participants: users, comments: comments, competition: competition[0], users:allusers, wins:wins})
+              })
             })
           })
         })
@@ -30,7 +36,13 @@ module.exports = {
   },
 
   getNewComp: (req,res)=>{
-    res.render('newCompetition.ejs', {user:req.session.user})
+    knex('users_comps').where({
+      user_id: req.session.user.id,
+      status: 'won',
+      isClaimed: false
+    }).then((wins)=>{
+      res.render('newCompetition.ejs', {user:req.session.user, wins:wins})
+    })
   },
 
   postNewComp: (req,res)=>{
@@ -109,7 +121,13 @@ module.exports = {
   winners: (req,res)=>{
     knex('users_comps').where('comp_id', req.params.id).join('users', 'users.id', '=', 'users_comps.user_id').then((results)=>{
       knex('competitions').where('id', req.params.id).then((comp)=>{
-        res.render('winners.ejs', {user:req.session.user, participants:results, competition:comp[0]})
+        knex('users_comps').where({
+          user_id: req.session.user.id,
+          status: 'won',
+          isClaimed: false
+        }).then((wins)=>{
+          res.render('winners.ejs', {user:req.session.user, participants:results, competition:comp[0], wins:win})
+        })
       })
     })
   },
