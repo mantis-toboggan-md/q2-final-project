@@ -64,7 +64,7 @@
           </div>
         </div>
         <%if(user){%>
-        <%if(user.username===competition.arbiter_name){%>
+        <%if(user.username===competition.arbiter_name && competition.comp_status !== 'complete'){%>
         <div class="col s5" id="arbiter_box">
           <div class="card blue-grey lighten-5">
             <div class="card-content blue-text">
