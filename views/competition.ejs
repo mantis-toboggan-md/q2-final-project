@@ -12,7 +12,7 @@
 
 
     <div class="container">
-      <div class = 'row'>
+      <div class='row'>
 
       </div>
       <div class="row">
@@ -20,7 +20,10 @@
 
         <div class="col s7" id='bet_desc'>
           <b>
-            <h5><%=competition.title%></h5></b> <br>
+            <h5>
+              <%=competition.title%>
+            </h5>
+          </b> <br>
           Started:
           <%=competition.created_at%><br>
           Description:
@@ -57,59 +60,66 @@
         </div>
         <%if(user){%>
         <%if(user.username===competition.arbiter_name){%>
-          <div class="col s5">
-            <div class="card blue-grey lighten-5">
-              <div class="card-content blue-text">
-                <h6 class='center-align'>You are currently the arbiter of this competition. <br>You may select a new
-                  arbiter below:</h6>
-                <br>
+        <div class="col s5" id="arbiter_box">
+          <div class="card blue-grey lighten-5">
+            <div class="card-content blue-text">
+              <h6 class='center-align'>You are currently the arbiter of this competition. <br>You may select a new
+                arbiter below:</h6>
+              <br>
 
-                <form action='/competitions/<%=competition.id%>/arbiter' method='post'>
-                  <input type="text" name="arbiter" list="usernames">
-                  <datalist id="usernames">
-                    <%for(let i = 0; i < users.length; i++){%>
-                    <option value='<%=users[i].username%>'>
-                      <%}%>
-                  </datalist>
-                  <button class="btn green">Submit</button>
+              <form action='/competitions/<%=competition.id%>/arbiter' method='post'>
+                <input type="text" name="arbiter" list="usernames">
+                <datalist id="usernames">
+                  <%for(let i = 0; i < users.length; i++){%>
+                  <option value='<%=users[i].username%>'>
+                    <%}%>
+                </datalist>
 
-                </form>
+                <button id="arbiter_button1" class="btn-flat orange-text">Submit</button>
+
+
+
                 <br><br>
+
                 <h6 class="center-align">Once competition is over, click on Complete button.</h6>
                 <br>
-                <a class="waves-effect waves-light btn" href='/competitions/<%=competition.id%>/complete'>Complete</a>
+                <a id="arbiter_button" class="btn-flat waves-effect waves-light orange-text" href='/competitions/<%=competition.id%>/complete'>Complete</a>
                 <br>
-              </div>
-            </div>
 
+
+              </form>
+            </div>
           </div>
-            <%}%>
-            <%}%>
 
         </div>
-
-
-        <%if(user){%>
-
-        <form action='/competitions/<%=competition.id%>/comment' method='POST'>
-          <div class='input-field'>
-            <textarea class='materialize-textarea' name='content' placeholder="Place comment here"></textarea>
-            <button class="btn-flat orange-text" type='submit'>Submit Comment</button>
-          </div>
-        </form>
-
         <%}%>
-        <b>Comments:</b>
-        <%for(let i = 0; i < comments.length; i++){%>
-        <br>
-        <%=comments[i].username%>:
-        <%=comments[i].content%> <br>
-        <%=comments[i].created_at%>
-        <%}%> <br>
+        <%}%>
+
+      </div>
 
 
+      <%if(user){%>
+
+      <form action='/competitions/<%=competition.id%>/comment' method='POST'>
+        <div class='input-field'>
+          <textarea class='materialize-textarea' name='content' placeholder="Place comment here"></textarea>
+          <button class="btn-flat orange-text" type='submit'>Submit Comment</button>
+        </div>
+      </form>
+
+      <%}%>
+      <b>Comments:</b>
+      <%for(let i = 0; i < comments.length; i++){%>
+      <br>
+      <%=comments[i].username%>:
+      <%=comments[i].content%> <br>
+      <%=comments[i].created_at%>
+      <%}%> <br>
+
     </div>
-    </div>
+
+    <div class="row"></div>
+
   </main>
   <% include ./partials/footer.ejs%>
 </body>
