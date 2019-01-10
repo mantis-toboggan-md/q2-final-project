@@ -153,7 +153,7 @@ module.exports = {
           status: 'won',
           isClaimed: false
         }).then((wins)=>{
-          res.render('winners.ejs', {user:req.session.user, participants:results, competition:comp[0], wins:win})
+          res.render('winners.ejs', {user:req.session.user, participants:results, competition:comp[0], wins:wins})
         })
       })
     })
