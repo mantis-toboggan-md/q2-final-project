@@ -2,6 +2,7 @@
 <nav class="nav-wrapper light-blue lighten-1">
   <div class="nav-wrapper container">
     <a href="/" class="brand-logo">You Bet Yo A$$</a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <%if(!user){%>
       <li><a href="/login">Log In</a></li>
@@ -20,9 +21,19 @@
   </div>
 </nav>
 
-<ul class="sidenav" id="mobile-demo">
-  <li><a href="/">Home</a></li>
-  <li><a href="/login">Login</a></li>
+<ul id="mobile-demo" class="sidenav">
+  <%if(!user){%>
+  <li><a href="/login">Log In</a></li>
+  <%} else {%>
+    <li>
+      <a href="/profile">Profile<%if(wins){%>
+        <%if(wins[0]){%>
+          <i class='tiny material-icons right' id='unclaimed'>star</i>
+        <%}%>
+      <%}%></a>
+    </li>
   <li><a href="/new">Start Competition</a></li>
-
+  <li><a href="/logout">Log Out</a></li>
+  <%}%>
 </ul>
+<script src ='materializeInit.js'></script>
