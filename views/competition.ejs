@@ -12,7 +12,10 @@
 
 
     <div class="container">
-      <div class='row'>
+      <%if(messages){%>
+      <%=messages%>
+      <%}%>
+      <div class = 'row'>
 
       </div>
       <div class="row">
@@ -43,8 +46,9 @@
 
 
           <div class="row">
-            <div class="col s6">
               Place Bet $$:
+              <form action = '/competitions/<%=competition.id%>/join' method = 'post'>
+              <div class="col s6">
               <div class="input_field">
                 <input type="number" name="bet_amt" placeholder="Enter Amount">
 
@@ -53,9 +57,10 @@
 
             <div class="col s6">
               <br>
-              <a class="btn orange accent-2 white-text" href='/competitions/<%=competition.id%>/join'>Join
-                Competition</a>
-            </div>
+              <button class="btn orange accent-2 white-text">Join
+                Competition</button>
+              </div>
+              </form>
           </div>
         </div>
         <%if(user){%>
