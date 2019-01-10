@@ -89,6 +89,7 @@ module.exports = {
             money: 100,
             isAdmin: false
           }).then(() => {
+            req.flash('info', 'account created')
             res.redirect('/login')
           });
         }
