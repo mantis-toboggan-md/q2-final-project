@@ -17,7 +17,7 @@ module.exports = {
                 status: 'won',
                 isClaimed: false
               }).then((wins)=>{
-                res.render('competition.ejs', {user: req.session.user, participants: users, comments: comments, competition: competition[0], users:allusers, wins:wins})
+                res.render('competition.ejs', {user: req.session.user, participants: users, comments: comments, competition: competition[0], users:allusers, wins:wins, messages:req.flash('info')})
               })
             })
           })
@@ -94,11 +94,33 @@ module.exports = {
   },
 
   join: (req,res)=>{
-    knex('users_comps').insert({
+    knex('users_comps').where({
       comp_id: req.params.id,
       user_id: req.session.user.id
-    }).then(()=>{
-      res.redirect(`/competitions/${req.params.id}`)
+    }).then((result)=>{
+      if(result[0]){
+        req.flash('info', 'you are already in this competition.')
+        res.redirect(`/competitions/${req.params.id}`)
+      } else {
+        knex.raw(
+          `UPDATE users SET money = money - ${req.body.bet_amt} WHERE id = ${req.session.user.id}`
+        ).then(() => {
+          knex.raw(
+            `UPDATE competitions SET pool = pool + ${req.body.bet_amt} WHERE id = ${req.params.id}`
+          ).then(() => {
+          knex('users_comps').insert({
+            comp_id: req.params.id,
+            user_id: req.session.user.id
+          }).then(()=>{
+            knex('users').where('id', req.session.user.id).then((results)=>{
+              req.session.user = results[0]
+            }).then(()=>{
+              res.redirect(`/competitions/${req.params.id}`)
+            })
+          })
+        })
+      })
+      }
     })
   },
 
