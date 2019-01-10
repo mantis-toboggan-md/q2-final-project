@@ -44,7 +44,7 @@
           <br><br>
 
 
-          <%if(user){%>
+          <%if(user && user.username !== competition.arbiter_name){%>
             <div class="row">
               Place Bet $$:
               <form action = '/competitions/<%=competition.id%>/join' method = 'post'>
@@ -69,7 +69,7 @@
         <div class="col s5" id="arbiter_box">
           <div class="card blue-grey lighten-5">
             <div class="card-content blue-text">
-              <h6 class='center-align'>You are currently the arbiter of this competition. <br>You may select a new
+              <h6 class='center-align'><span class = 'red-text'>You are currently the arbiter: you cannot place a bet.</span> <br>You may select a new
                 arbiter below:</h6>
               <br>
 
@@ -87,7 +87,7 @@
 
                 <br><br>
 
-                <h6 class="center-align">Once competition is over, click on Complete button.</h6>
+                <h6 class="center-align">Once the competition is over, click the Complete button.</h6>
                 <br>
                 <a id="arbiter_button" class="btn-flat waves-effect waves-light orange-text" href='/competitions/<%=competition.id%>/complete'>Complete</a>
                 <br>

@@ -104,7 +104,7 @@ module.exports = {
     }).then((result)=>{
       knex('users').where('id', req.session.user.id).then((user)=>{
         knex('competitions').where('id', req.params.id).then((comp)=>{
-          if(user[0].money < comp[0].bet_min || result[0]){
+          if(user[0].money < comp[0].bet_min || result[0] || req.body.bet_amt < comp[0].bet_min){
             req.flash('info', "can't let you do that, starfox")
             res.redirect(`/competitions/${req.params.id}`)
           }
