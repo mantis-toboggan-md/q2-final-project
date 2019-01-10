@@ -39,7 +39,7 @@ module.exports = {
 
 
   userLogin: (req, res) => {
-    res.render('login', {user:req.session.user, messages:req.flash('info')})
+    res.render('login', {user:req.session.user, messages:req.flash('info'), wins: ''})
   },
 
 
