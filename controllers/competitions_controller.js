@@ -15,8 +15,9 @@ module.exports = {
               comment.created_at = moment(comment.created_at).format('MMMM DD, hh:mm a')
             })
             knex('users').then((allusers)=>{
+              let user = req.session.user || {id: null}
               knex('users_comps').where({
-                user_id: req.session.user.id,
+                user_id: user.id,
                 status: 'won',
                 isClaimed: false
               }).then((wins)=>{
