@@ -44,24 +44,25 @@
           <br><br>
 
 
-
-          <div class="row">
+          <%if(user){%>
+            <div class="row">
               Place Bet $$:
               <form action = '/competitions/<%=competition.id%>/join' method = 'post'>
-              <div class="col s6">
-              <div class="input_field">
-                <input type="number" name="bet_amt" placeholder="Enter Amount">
+                <div class="col s6">
+                  <div class="input_field">
+                    <input type="number" name="bet_amt" placeholder="Enter Amount">
 
-              </div>
-            </div>
+                  </div>
+                </div>
 
-            <div class="col s6">
-              <br>
-              <button class="btn orange accent-2 white-text">Join
-                Competition</button>
+                <div class="col s6">
+                  <br>
+                  <button class="btn orange accent-2 white-text">Join
+                    Competition</button>
+                  </div>
+                </form>
               </div>
-              </form>
-          </div>
+          <%}%>
         </div>
         <%if(user){%>
         <%if(user.username===competition.arbiter_name && competition.comp_status !== 'complete'){%>
