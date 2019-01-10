@@ -25,6 +25,9 @@ module.exports = {
               status: 'won',
               isClaimed: false
             }).then((wins)=>{
+              if(!wins[0]){
+                wins = ''
+              }
                 res.render('index.ejs', { pubComps: pubComps, privComps: results, user:req.session.user, wins:wins })
             })
           })
