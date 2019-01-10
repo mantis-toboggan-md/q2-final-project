@@ -30,6 +30,9 @@
                     <li class="tab col s3">
                       <a href="#lost">Lost</a>
                     </li>
+                    <li class="tab col s3">
+                      <a href="#arbitration">Arbitration</a>
+                    </li>
                   </ul>
                 </div>
                 <div id="ongoing" class="col s12">
@@ -60,6 +63,16 @@
                     <div>
                       <h6><a href='/competitions/<%=losses[i].id%>'><%=losses[i].title%></a></h6> ended: <%=losses[i].updated_at%>
                       <%if(i < losses.length-1){%>
+                        <div class='divider'></div>
+                      <%}%>
+                    </div>
+                  <%}%>
+                </div>
+                <div id="arbitration" class="col s12">
+                  <%for(let i = 0; i < arbitrage.length; i++){%>
+                    <div>
+                      <h6><a href='/competitions/<%=arbitrage[i].id%>'><%=arbitrage[i].title%></a></h6> ended: <%=arbitrage[i].updated_at%>
+                      <%if(i < arbitrage.length-1){%>
                         <div class='divider'></div>
                       <%}%>
                     </div>

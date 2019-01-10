@@ -128,7 +128,9 @@ module.exports = {
               status: 'won',
               isClaimed: false
             }).then((userwins)=>{
-              res.render('profile.ejs', {user:req.session.user, comp_wins:wins, losses:losses, ongoing:ongoing, wins:userwins})
+              knex('competitions').where('arbiter_name', req.session.user.username).then((arbitrage)=>{
+                res.render('profile.ejs', {user:req.session.user, comp_wins:wins, losses:losses, ongoing:ongoing, wins:userwins, arbitrage:arbitrage})
+              })
             })
           })
       })
