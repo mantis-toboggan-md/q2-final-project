@@ -133,7 +133,12 @@ module.exports = {
     knex('competitions').where('id', req.params.id).update({
       arbiter_name: req.body.arbiter
     }).then(()=>{
-      res.redirect(`/competitions/${req.params.id}`)
+      knex('invites').insert({
+        comp_id: req.params.id,
+        username: req.body.arbiter
+      }).then(()=>{
+        res.redirect(`/competitions/${req.params.id}`)
+      })
     })
   },
 
