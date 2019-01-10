@@ -98,29 +98,34 @@ module.exports = {
       comp_id: req.params.id,
       user_id: req.session.user.id
     }).then((result)=>{
-      if(result[0]){
-        req.flash('info', 'you are already in this competition.')
-        res.redirect(`/competitions/${req.params.id}`)
-      } else {
-        knex.raw(
-          `UPDATE users SET money = money - ${req.body.bet_amt} WHERE id = ${req.session.user.id}`
-        ).then(() => {
-          knex.raw(
-            `UPDATE competitions SET pool = pool + ${req.body.bet_amt} WHERE id = ${req.params.id}`
-          ).then(() => {
-          knex('users_comps').insert({
-            comp_id: req.params.id,
-            user_id: req.session.user.id
-          }).then(()=>{
-            knex('users').where('id', req.session.user.id).then((results)=>{
-              req.session.user = results[0]
-            }).then(()=>{
-              res.redirect(`/competitions/${req.params.id}`)
+      knex('users').where('id', req.session.user.id).then((user)=>{
+        knex('competitions').where('id', req.params.id).then((comp)=>{
+          if(user[0].money < comp[0].bet_min || result[0]){
+            req.flash('info', "can't let you do that, starfox")
+            res.redirect(`/competitions/${req.params.id}`)
+          }
+          else {
+            knex.raw(
+              `UPDATE users SET money = money - ${req.body.bet_amt} WHERE id = ${req.session.user.id}`
+            ).then(() => {
+              knex.raw(
+                `UPDATE competitions SET pool = pool + ${req.body.bet_amt} WHERE id = ${req.params.id}`
+              ).then(() => {
+                knex('users_comps').insert({
+                  comp_id: req.params.id,
+                  user_id: req.session.user.id
+                }).then(()=>{
+                  knex('users').where('id', req.session.user.id).then((results)=>{
+                    req.session.user = results[0]
+                  }).then(()=>{
+                    res.redirect(`/competitions/${req.params.id}`)
+                  })
+                })
+              })
             })
-          })
+          }
         })
       })
-      }
     })
   },
 
