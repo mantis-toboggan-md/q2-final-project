@@ -11,6 +11,9 @@ module.exports = {
           .then((users)=>{
           knex('comments').where('comp_id', req.params.id).join('users', 'comments.user_id', '=', 'users.id')
           .then((comments)=>{
+            comments.map((comment)=>{
+              comment.created_at = moment(comment.created_at).format('MMMM DD, hh:mm a')
+            })
             knex('users').then((allusers)=>{
               knex('users_comps').where({
                 user_id: req.session.user.id,

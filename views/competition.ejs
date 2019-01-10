@@ -117,8 +117,8 @@
       <%for(let i = 0; i < comments.length; i++){%>
       <br>
       <%=comments[i].username%>:
-      <%=comments[i].content%> <br>
-      <%=comments[i].created_at%>
+      <span><%=comments[i].content%></span> <br>
+      <span class ='comment_timestamp'><%=comments[i].created_at%></span>
       <%}%> <br>
 
     </div>

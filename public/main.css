@@ -21,7 +21,14 @@
 
 /* #arbiter_button1 {
   margin-left: 80px;
-} 
+}
 #arbiter_button {
   margin-left: 70px;
 } */
+
+.comment_timestamp {
+  color: rgba(0,0,0,0.5);
+  font-size: 0.8em;
+  font-style: italic;
+  margin-top: -5px;
+}
